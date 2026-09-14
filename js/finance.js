@@ -1,17 +1,1 @@
-import { getCollection } from "./storage.js";
-import { barChart } from "./charts.js";
-export function init() {
-  const f = getCollection("finance"),
-    income = f.reduce((s, x) => s + x.income, 0),
-    expenses = f.reduce((s, x) => s + x.expenses, 0);
-  document.getElementById("pageContent").innerHTML =
-    `<div class="page-head"><div><h2>Finance</h2><p>Income, expenses and profitability.</p></div></div><div class="grid grid-3"><div class="card stat-card"><div class="stat-label">Total Income</div><div class="stat-value">৳${income.toLocaleString()}</div><span class="trend up">↑ Revenue</span></div><div class="card stat-card"><div class="stat-label">Total Expenses</div><div class="stat-value">৳${expenses.toLocaleString()}</div><span class="trend down">Operating costs</span></div><div class="card stat-card"><div class="stat-label">Net Profit</div><div class="stat-value">৳${(income - expenses).toLocaleString()}</div><span class="trend up">Income − Expenses</span></div></div><div class="card section-gap"><div class="card-header"><h3 class="card-title">Monthly Financial Performance</h3></div><div class="card-body"><div class="chart-box"><canvas id="financeChart"></canvas></div></div></div>`;
-  barChart(
-    "financeChart",
-    f.map((x) => x.month),
-    [
-      { label: "Income", data: f.map((x) => x.income) },
-      { label: "Expenses", data: f.map((x) => x.expenses) },
-    ],
-  );
-}
+import {getCollection} from "./storage.js";import {barChart} from "./charts.js";export function init(){const f=getCollection("finance"),income=f.reduce((s,x)=>s+x.income,0),expenses=f.reduce((s,x)=>s+x.expenses,0);document.getElementById("pageContent").innerHTML=`<div class="page-head"><div><h2>Finance</h2><p>Income, expenses and profitability.</p></div></div><div class="grid grid-3"><div class="card stat-card"><div class="stat-label">Total Income</div><div class="stat-value">৳${income.toLocaleString()}</div><span class="trend up">↑ Revenue</span></div><div class="card stat-card"><div class="stat-label">Total Expenses</div><div class="stat-value">৳${expenses.toLocaleString()}</div><span class="trend down">Operating costs</span></div><div class="card stat-card"><div class="stat-label">Net Profit</div><div class="stat-value">৳${(income-expenses).toLocaleString()}</div><span class="trend up">Income − Expenses</span></div></div><div class="card section-gap"><div class="card-header"><h3 class="card-title">Monthly Financial Performance</h3></div><div class="card-body"><div class="chart-box"><canvas id="financeChart"></canvas></div></div></div>`;barChart("financeChart",f.map(x=>x.month),[{label:"Income",data:f.map(x=>x.income)},{label:"Expenses",data:f.map(x=>x.expenses)}])}

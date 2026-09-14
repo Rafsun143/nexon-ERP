@@ -1,14 +1,2 @@
-export function closeModal() {
-  document.querySelector(".modal-backdrop")?.remove();
-}
-export function openModal({ title, body, footer = "" }) {
-  closeModal();
-  const b = document.createElement("div");
-  b.className = "modal-backdrop";
-  b.innerHTML = `<div class="modal"><div class="modal-head"><strong>${title}</strong><button class="icon-btn" data-close>×</button></div><div class="modal-body">${body}</div>${footer ? `<div class="modal-foot">${footer}</div>` : ""}</div>`;
-  document.body.appendChild(b);
-  b.addEventListener("click", (e) => {
-    if (e.target === b || e.target.closest("[data-close]")) closeModal();
-  });
-  return b;
-}
+export function closeModal(){document.querySelector(".modal-backdrop")?.remove()}
+export function openModal({title,body,footer=""}){closeModal();const b=document.createElement("div");b.className="modal-backdrop";b.innerHTML=`<div class="modal"><div class="modal-head"><strong>${title}</strong><button class="icon-btn" data-close>×</button></div><div class="modal-body">${body}</div>${footer?`<div class="modal-foot">${footer}</div>`:""}</div>`;document.body.appendChild(b);b.addEventListener("click",e=>{if(e.target===b||e.target.closest("[data-close]"))closeModal()});return b}

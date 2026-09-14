@@ -1,26 +1,2 @@
-export function toast(message, type = "success", title = "NEXORA ERP") {
-  let wrap = document.querySelector(".toast-wrap");
-  if (!wrap) {
-    wrap = document.createElement("div");
-    wrap.className = "toast-wrap";
-    document.body.appendChild(wrap);
-  }
-  const el = document.createElement("div");
-  el.className = `toast ${type}`;
-  el.innerHTML = `<div>●</div><div><b>${escapeHtml(title)}</b><small>${escapeHtml(message)}</small></div>`;
-  wrap.appendChild(el);
-  setTimeout(() => el.remove(), 3200);
-}
-function escapeHtml(s) {
-  return String(s).replace(
-    /[&<>"']/g,
-    (c) =>
-      ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#039;",
-      })[c],
-  );
-}
+export function toast(message,type="success",title="NEXORA ERP"){let wrap=document.querySelector(".toast-wrap");if(!wrap){wrap=document.createElement("div");wrap.className="toast-wrap";document.body.appendChild(wrap)}const el=document.createElement("div");el.className=`toast ${type}`;el.innerHTML=`<div>●</div><div><b>${escapeHtml(title)}</b><small>${escapeHtml(message)}</small></div>`;wrap.appendChild(el);setTimeout(()=>el.remove(),3200)}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
