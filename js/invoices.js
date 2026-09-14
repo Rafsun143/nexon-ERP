@@ -1,1 +1,16 @@
-import {getCollection} from "./storage.js";export function init(){const o=getCollection("orders")[0];document.getElementById("pageContent").innerHTML=`<div class="page-head no-print"><div><h2>Invoices</h2><p>Review and print generated invoices.</p></div><button class="btn btn-primary" onclick="window.print()">🖨 Print Invoice</button></div><div class="invoice-paper"><div class="invoice-head"><div><div class="invoice-logo">NEXORA ERP</div><div class="muted" style="font-size:11px;margin-top:6px">Smart Business Management</div></div><div class="invoice-meta">Invoice #INV-${o?.id||1001}<br>Date: ${o?.date||new Date().toISOString().slice(0,10)}<br>Status: ${o?.status||"Paid"}</div></div><div style="display:flex;justify-content:space-between;gap:20px;padding:25px 0"><div><b>Bill To</b><div style="margin-top:7px">${o?.customer||"Walk-in Customer"}</div></div><div><b>Payment</b><div style="margin-top:7px">Business Account</div></div></div><table><thead><tr><th>Description</th><th>Qty</th><th>Unit Price</th><th>Total</th></tr></thead><tbody>${getCollection("products").slice(0,3).map((p,i)=>`<tr><td>${p.name}</td><td>${i+1}</td><td>৳${p.price.toLocaleString()}</td><td>৳${(p.price*(i+1)).toLocaleString()}</td></tr>`).join("")}</tbody></table><div class="invoice-total totals"><div class="total-line"><span>Subtotal</span><b>৳${Math.max(0,(o?.total||0)).toLocaleString()}</b></div><div class="total-line"><span>Tax included</span><b>৳0</b></div><div class="total-line grand-total"><span>Total Due</span><b>৳${(o?.total||0).toLocaleString()}</b></div></div><div class="divider"></div><div class="muted" style="font-size:10px">Thank you for doing business with NEXORA ERP.</div></div>`}
+import { getCollection } from "./storage.js";
+export function init() {
+  const o = getCollection("orders")[0];
+  document.getElementById("pageContent").innerHTML =
+    `<div class="page-head no-print"><div><h2>Invoices</h2><p>Review and print generated invoices.</p></div><button class="btn btn-primary" onclick="window.print()">🖨 Print Invoice</button></div><div class="invoice-paper"><div class="invoice-head"><div><div class="invoice-logo">NEXORA ERP</div><div class="muted" style="font-size:11px;margin-top:6px">Smart Business Management</div></div><div class="invoice-meta">Invoice #INV-${o?.id || 1001}<br>Date: ${o?.date || new Date().toISOString().slice(0, 10)}<br>Status: ${o?.status || "Paid"}</div></div><div style="display:flex;justify-content:space-between;gap:20px;padding:25px 0"><div><b>Bill To</b><div style="margin-top:7px">${o?.customer || "Walk-in Customer"}</div></div><div><b>Payment</b><div style="margin-top:7px">Business Account</div></div></div><table><thead><tr><th>Description</th><th>Qty</th><th>Unit Price</th><th>Total</th></tr></thead><tbody>${getCollection(
+      "products",
+    )
+      .slice(0, 3)
+      .map(
+        (p, i) =>
+          `<tr><td>${p.name}</td><td>${i + 1}</td><td>৳${p.price.toLocaleString()}</td><td>৳${(p.price * (i + 1)).toLocaleString()}</td></tr>`,
+      )
+      .join(
+        "",
+      )}</tbody></table><div class="invoice-total totals"><div class="total-line"><span>Subtotal</span><b>৳${Math.max(0, o?.total || 0).toLocaleString()}</b></div><div class="total-line"><span>Tax included</span><b>৳0</b></div><div class="total-line grand-total"><span>Total Due</span><b>৳${(o?.total || 0).toLocaleString()}</b></div></div><div class="divider"></div><div class="muted" style="font-size:10px">Thank you for doing business with NEXORA ERP.</div></div>`;
+}

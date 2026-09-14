@@ -1,5 +1,44 @@
-import {toggleTheme} from "./theme.js";import {unreadCount} from "./notifications.js";
-const links=[
-["Dashboard","dashboard.html","📊"],["Employees","employees.html","👥"],["Customers","customers.html","🤝"],["Products","products.html","📦"],["Inventory","inventory.html","🧮"],["Sales","sales.html","🛒"],["Invoices","invoices.html","🧾"],["Finance","finance.html","💰"],["Reports","reports.html","📈"],["Notifications","notifications.html","🔔"],["My Profile","profile.html","👤"]];
-export function renderShell(title){const active=document.body.dataset.page;const user=JSON.parse(localStorage.getItem("nexora_user")||'{"name":"Admin","role":"Admin"}');document.getElementById("app").innerHTML=`<div class="app-shell"><aside class="sidebar" id="sidebar"><div class="brand"><div class="brand-mark">N</div><div><strong>NEXORA ERP</strong><small>Smart Business</small></div></div><div class="nav-label">Workspace</div>${links.map(([n,h,i])=>`<a class="nav-link ${active===h.replace(".html","")?"active":""}" href="${h}"><span class="nav-icon">${i}</span>${n}${n==="Notifications"&&unreadCount()?`<span class="badge badge-danger" style="margin-left:auto">${unreadCount()}</span>`:""}</a>`).join("")}<div class="sidebar-footer"><button class="nav-link" id="resetDemo" style="width:100%;border:0;background:none">↻ Reset Demo Data</button></div></aside><section class="main-area"><header class="topbar"><div style="display:flex;align-items:center;gap:12px"><button class="icon-btn mobile-menu" id="menuBtn">☰</button><div class="top-title"><h1>${title}</h1><p>Business overview and operations</p></div></div><div class="top-actions"><button class="icon-btn" id="themeBtn" title="Toggle theme">◐</button><a class="icon-btn hide-mobile" href="notifications.html">🔔</a><div class="user-menu"><button class="avatar" id="userBtn">${initials(user.name)}</button><div class="user-pop" id="userPop"><a href="profile.html">My Profile</a><a href="notifications.html">Notifications</a><button id="logoutBtn">Sign out</button></div></div></div></header><main class="page-content" id="pageContent"></main></section></div>`;document.getElementById("themeBtn").onclick=()=>toggleTheme();document.getElementById("menuBtn").onclick=()=>document.getElementById("sidebar").classList.toggle("open");document.getElementById("userBtn").onclick=()=>document.getElementById("userPop").classList.toggle("open");document.getElementById("logoutBtn").onclick=()=>{localStorage.removeItem("nexora_auth");location.href="login.html"};document.getElementById("resetDemo").onclick=()=>{localStorage.removeItem("nexora_db_v1");location.reload()}}
-function initials(n){return String(n).split(/\s+/).map(x=>x[0]).slice(0,2).join("").toUpperCase()}
+import { toggleTheme } from "./theme.js";
+import { unreadCount } from "./notifications.js";
+const links = [
+  ["Dashboard", "dashboard.html", "📊"],
+  ["Employees", "employees.html", "👥"],
+  ["Customers", "customers.html", "🤝"],
+  ["Products", "products.html", "📦"],
+  ["Inventory", "inventory.html", "🧮"],
+  ["Sales", "sales.html", "🛒"],
+  ["Invoices", "invoices.html", "🧾"],
+  ["Finance", "finance.html", "💰"],
+  ["Reports", "reports.html", "📈"],
+  ["Notifications", "notifications.html", "🔔"],
+  ["My Profile", "profile.html", "👤"],
+];
+export function renderShell(title) {
+  const active = document.body.dataset.page;
+  const user = JSON.parse(
+    localStorage.getItem("nexora_user") || '{"name":"Admin","role":"Admin"}',
+  );
+  document.getElementById("app").innerHTML =
+    `<div class="app-shell"><aside class="sidebar" id="sidebar"><div class="brand"><div class="brand-mark">N</div><div><strong>NEXORA ERP</strong><small>Smart Business</small></div></div><div class="nav-label">Workspace</div>${links.map(([n, h, i]) => `<a class="nav-link ${active === h.replace(".html", "") ? "active" : ""}" href="${h}"><span class="nav-icon">${i}</span>${n}${n === "Notifications" && unreadCount() ? `<span class="badge badge-danger" style="margin-left:auto">${unreadCount()}</span>` : ""}</a>`).join("")}<div class="sidebar-footer"><button class="nav-link" id="resetDemo" style="width:100%;border:0;background:none">↻ Reset Demo Data</button></div></aside><section class="main-area"><header class="topbar"><div style="display:flex;align-items:center;gap:12px"><button class="icon-btn mobile-menu" id="menuBtn">☰</button><div class="top-title"><h1>${title}</h1><p>Business overview and operations</p></div></div><div class="top-actions"><button class="icon-btn" id="themeBtn" title="Toggle theme">◐</button><a class="icon-btn hide-mobile" href="notifications.html">🔔</a><div class="user-menu"><button class="avatar" id="userBtn">${initials(user.name)}</button><div class="user-pop" id="userPop"><a href="profile.html">My Profile</a><a href="notifications.html">Notifications</a><button id="logoutBtn">Sign out</button></div></div></div></header><main class="page-content" id="pageContent"></main></section></div>`;
+  document.getElementById("themeBtn").onclick = () => toggleTheme();
+  document.getElementById("menuBtn").onclick = () =>
+    document.getElementById("sidebar").classList.toggle("open");
+  document.getElementById("userBtn").onclick = () =>
+    document.getElementById("userPop").classList.toggle("open");
+  document.getElementById("logoutBtn").onclick = () => {
+    localStorage.removeItem("nexora_auth");
+    location.href = "login.html";
+  };
+  document.getElementById("resetDemo").onclick = () => {
+    localStorage.removeItem("nexora_db_v1");
+    location.reload();
+  };
+}
+function initials(n) {
+  return String(n)
+    .split(/\s+/)
+    .map((x) => x[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+}

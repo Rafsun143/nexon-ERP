@@ -1,2 +1,12 @@
-export function initTheme(){const t=localStorage.getItem("nexora_theme")||"light";document.documentElement.dataset.theme=t;return t}
-export function toggleTheme(){const t=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=t;localStorage.setItem("nexora_theme",t);return t}
+export function initTheme() {
+  const t = localStorage.getItem("nexora_theme") || "light";
+  document.documentElement.dataset.theme = t;
+  return t;
+}
+export function toggleTheme() {
+  const t =
+    document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  document.documentElement.dataset.theme = t;
+  localStorage.setItem("nexora_theme", t);
+  return t;
+}

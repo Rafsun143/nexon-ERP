@@ -1,1 +1,20 @@
-import {getCollection} from "./storage.js";import {barChart,doughnutChart} from "./charts.js";export function init(){const p=getCollection("products"),o=getCollection("orders"),e=getCollection("employees"),c=getCollection("customers");document.getElementById("pageContent").innerHTML=`<div class="page-head"><div><h2>Reports</h2><p>Business intelligence across core operations.</p></div></div><div class="grid grid-2"><div class="card"><div class="card-header"><h3 class="card-title">Order Revenue</h3></div><div class="card-body"><div class="chart-box"><canvas id="reportBar"></canvas></div></div></div><div class="card"><div class="card-header"><h3 class="card-title">Inventory Mix</h3></div><div class="card-body"><div class="chart-box"><canvas id="reportPie"></canvas></div></div></div></div><div class="grid grid-4 section-gap"><div class="card stat-card"><div class="stat-label">Orders</div><div class="stat-value">${o.length}</div></div><div class="card stat-card"><div class="stat-label">Products</div><div class="stat-value">${p.length}</div></div><div class="card stat-card"><div class="stat-label">Customers</div><div class="stat-value">${c.length}</div></div><div class="card stat-card"><div class="stat-label">Employees</div><div class="stat-value">${e.length}</div></div></div>`;barChart("reportBar",o.map(x=>"#"+x.id),[{label:"Revenue",data:o.map(x=>x.total)}]);doughnutChart("reportPie",p.map(x=>x.name),p.map(x=>x.quantity))}
+import { getCollection } from "./storage.js";
+import { barChart, doughnutChart } from "./charts.js";
+export function init() {
+  const p = getCollection("products"),
+    o = getCollection("orders"),
+    e = getCollection("employees"),
+    c = getCollection("customers");
+  document.getElementById("pageContent").innerHTML =
+    `<div class="page-head"><div><h2>Reports</h2><p>Business intelligence across core operations.</p></div></div><div class="grid grid-2"><div class="card"><div class="card-header"><h3 class="card-title">Order Revenue</h3></div><div class="card-body"><div class="chart-box"><canvas id="reportBar"></canvas></div></div></div><div class="card"><div class="card-header"><h3 class="card-title">Inventory Mix</h3></div><div class="card-body"><div class="chart-box"><canvas id="reportPie"></canvas></div></div></div></div><div class="grid grid-4 section-gap"><div class="card stat-card"><div class="stat-label">Orders</div><div class="stat-value">${o.length}</div></div><div class="card stat-card"><div class="stat-label">Products</div><div class="stat-value">${p.length}</div></div><div class="card stat-card"><div class="stat-label">Customers</div><div class="stat-value">${c.length}</div></div><div class="card stat-card"><div class="stat-label">Employees</div><div class="stat-value">${e.length}</div></div></div>`;
+  barChart(
+    "reportBar",
+    o.map((x) => "#" + x.id),
+    [{ label: "Revenue", data: o.map((x) => x.total) }],
+  );
+  doughnutChart(
+    "reportPie",
+    p.map((x) => x.name),
+    p.map((x) => x.quantity),
+  );
+}
