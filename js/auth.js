@@ -1,0 +1,135 @@
+import { toast } from "./toast.js";
+const USERS_KEY = "nexora_users";
+const DEMO = {
+  email: "admin@nexora.local",
+  password: "Admin@123",
+  name: "Aarav Hasan",
+  role: "Admin",
+};
+export function users() {
+  return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+}
+function saveUsers(x) {
+  localStorage.setItem(USERS_KEY, JSON.stringify(x));
+}
+export function initAuth(page) {
+  const el = document.getElementById("authView");
+  if (!el) return;
+  if (page === "login") loginView(el);
+  if (page === "signup") signupView(el);
+  if (page === "forgot-password") forgotView(el);
+  if (page === "reset-password") resetView(el);
+}
+function shell(title, subtitle, form, links = "") {
+  return `<h1>${title}</h1><p class="subtitle">${subtitle}</p><div id="authMessage" class="auth-message"></div>${form}${links}`;
+}
+function pass(name = "password", label = "Password") {
+  return `<div class="field"><label>${label}</label><div class="password-wrap"><input id="${name}" type="password" required><button type="button" class="toggle-pass" data-toggle="${name}">Show</button></div></div>`;
+}
+function loginView(el) {
+  el.innerHTML = shell(
+    "Welcome back",
+    "Sign in to continue to your NEXORA ERP workspace.",
+    `<form id="loginForm" class="auth-form"><div class="field"><label>Email</label><input id="email" type="email" placeholder="admin@nexora.local" required></div>${pass()}<label style="font-size:11px;color:var(--muted)"><input id="remember" type="checkbox"> Remember me</label><button class="btn btn-primary auth-submit">Sign In</button></form>`,
+    `<div class="auth-links"><a href="signup.html">Create account</a><a href="forgot-password.html">Forgot password?</a></div><div class="demo-box"><b>Demo:</b> admin@nexora.local / Admin@123</div>`,
+  );
+  bindPass();
+  document.getElementById("loginForm").onsubmit = (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value.trim().toLowerCase(),
+      pw = document.getElementById("password").value;
+    const u = [DEMO, ...users()].find(
+      (x) => x.email.toLowerCase() === email && x.password === pw,
+    );
+    if (!u) return msg("Invalid email or password.", "error");
+    localStorage.setItem("nexora_auth", "true");
+    localStorage.setItem("nexora_user", JSON.stringify(u));
+    location.href = "dashboard.html";
+  };
+}
+function signupView(el) {
+  el.innerHTML = shell(
+    "Create your account",
+    "Set up a frontend demo account for NEXORA ERP.",
+    `<form id="signupForm" class="auth-form"><div class="field"><label>Full name</label><input id="name" required></div><div class="field"><label>Email</label><input id="email" type="email" required></div>${pass("password")} ${pass("confirm", "Confirm password")}<div class="strength"><span id="strengthBar"></span></div><button class="btn btn-primary auth-submit">Create Account</button></form>`,
+    `<div class="auth-links"><span class="muted">Already registered?</span><a href="login.html">Sign in</a></div>`,
+  );
+  bindPass();
+  document.getElementById("password").oninput = (e) => {
+    const n = e.target.value.length;
+    document.getElementById("strengthBar").style.width =
+      Math.min(100, n * 12.5) + "%";
+  };
+  document.getElementById("signupForm").onsubmit = (e) => {
+    e.preventDefault();
+    const name = document.getElementById("name").value.trim(),
+      email = document.getElementById("email").value.trim().toLowerCase(),
+      password = document.getElementById("password").value,
+      confirm = document.getElementById("confirm").value;
+    if (password !== confirm) return msg("Passwords do not match.", "error");
+    if (password.length < 6)
+      return msg("Password must contain at least 6 characters.", "error");
+    if ([DEMO, ...users()].some((x) => x.email === email))
+      return msg("An account with this email already exists.", "error");
+    saveUsers([...users(), { name, email, password, role: "Employee" }]);
+    msg("Account created. Redirecting to sign in...", "success");
+    setTimeout(() => (location.href = "login.html"), 900);
+  };
+}
+function forgotView(el) {
+  el.innerHTML = shell(
+    "Forgot password?",
+    "Enter your email and we will create a demo reset session.",
+    `<form id="forgotForm" class="auth-form"><div class="field"><label>Email</label><input id="email" type="email" required></div><button class="btn btn-primary auth-submit">Send Reset Link</button></form>`,
+    `<div class="auth-links"><a href="login.html">Back to sign in</a></div>`,
+  );
+  document.getElementById("forgotForm").onsubmit = (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value.trim().toLowerCase();
+    if (![DEMO, ...users()].some((x) => x.email === email))
+      return msg("No account found for that email.", "error");
+    sessionStorage.setItem("nexora_reset_email", email);
+    msg("Reset session created. Opening reset page...", "success");
+    setTimeout(() => (location.href = "reset-password.html"), 700);
+  };
+}
+function resetView(el) {
+  el.innerHTML = shell(
+    "Reset password",
+    "Choose a new password for your demo account.",
+    `<form id="resetForm" class="auth-form">${pass()}${pass("confirm", "Confirm password")}<button class="btn btn-primary auth-submit">Update Password</button></form>`,
+    `<div class="auth-links"><a href="login.html">Back to sign in</a></div>`,
+  );
+  bindPass();
+  document.getElementById("resetForm").onsubmit = (e) => {
+    e.preventDefault();
+    const email = sessionStorage.getItem("nexora_reset_email"),
+      p = document.getElementById("password").value,
+      c = document.getElementById("confirm").value;
+    if (!email) return msg("Start from Forgot Password first.", "error");
+    if (p.length < 6)
+      return msg("Password must contain at least 6 characters.", "error");
+    if (p !== c) return msg("Passwords do not match.", "error");
+    saveUsers(
+      users().map((u) => (u.email === email ? { ...u, password: p } : u)),
+    );
+    sessionStorage.removeItem("nexora_reset_email");
+    msg("Password updated successfully.", "success");
+    setTimeout(() => (location.href = "login.html"), 800);
+  };
+}
+function bindPass() {
+  document.querySelectorAll("[data-toggle]").forEach(
+    (b) =>
+      (b.onclick = () => {
+        const i = document.getElementById(b.dataset.toggle);
+        i.type = i.type === "password" ? "text" : "password";
+        b.textContent = i.type === "password" ? "Show" : "Hide";
+      }),
+  );
+}
+function msg(text, type) {
+  const e = document.getElementById("authMessage");
+  e.textContent = text;
+  e.className = `auth-message show ${type}`;
+}

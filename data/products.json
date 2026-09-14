@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Premium Headphones",
+    "category": "Electronics",
+    "price": 4500,
+    "quantity": 24,
+    "reorder": 8,
+    "status": "In Stock"
+  },
+  {
+    "id": 2,
+    "name": "Office Chair",
+    "category": "Furniture",
+    "price": 12500,
+    "quantity": 5,
+    "reorder": 6,
+    "status": "Low Stock"
+  }
+]

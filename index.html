@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>NEXORA ERP — Smart Business Management</title>
+    <meta
+      name="description"
+      content="NEXORA ERP — Smart Business Management Dashboard"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --p: #4f46e5;
+        --p2: #7c3aed;
+        --bg: #f5f7fb;
+        --text: #172033;
+        --muted: #64748b;
+        --border: #e2e8f0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        font-family: Inter, sans-serif;
+      }
+      body {
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 10% 10%, #6366f12b, transparent 32%),
+          radial-gradient(circle at 90% 90%, #7c3aed24, transparent 32%),
+          var(--bg);
+        color: var(--text);
+      }
+      .page {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+      .card {
+        width: min(650px, 100%);
+        padding: 52px 42px;
+        text-align: center;
+        background: #fffffff0;
+        border: 1px solid #ffffffcc;
+        border-radius: 28px;
+        box-shadow: 0 25px 70px #0f172a1f;
+        backdrop-filter: blur(18px);
+        animation: enter 0.65s ease;
+      }
+      .logo {
+        width: 78px;
+        height: 78px;
+        margin: 0 auto 22px;
+        display: grid;
+        place-items: center;
+        border-radius: 21px;
+        background: linear-gradient(135deg, var(--p), var(--p2));
+        color: #fff;
+        font-size: 34px;
+        font-weight: 800;
+        box-shadow: 0 15px 35px #4f46e54d;
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(32px, 7vw, 48px);
+        letter-spacing: -1.8px;
+        background: linear-gradient(135deg, var(--p), var(--p2));
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+      .tag {
+        margin: 12px auto 30px;
+        color: var(--muted);
+        line-height: 1.7;
+        font-size: 14px;
+      }
+      .features {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 30px;
+      }
+      .feature {
+        padding: 17px 10px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: #f8fafccc;
+      }
+      .feature b {
+        display: block;
+        font-size: 12px;
+        margin-top: 6px;
+      }
+      .feature span {
+        font-size: 21px;
+      }
+      .loader {
+        width: 43px;
+        height: 43px;
+        margin: 0 auto 15px;
+        border: 4px solid #e5e7eb;
+        border-top-color: var(--p);
+        border-right-color: var(--p2);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+      .status {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .actions {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 23px;
+      }
+      .btn {
+        padding: 11px 18px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .primary {
+        color: #fff;
+        background: var(--p);
+      }
+      .secondary {
+        color: var(--text);
+        background: #fff;
+        border: 1px solid var(--border);
+      }
+      .footer {
+        margin-top: 28px;
+        color: #94a3b8;
+        font-size: 10px;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes enter {
+        from {
+          opacity: 0;
+          transform: translateY(20px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @media (max-width: 600px) {
+        .card {
+          padding: 40px 20px;
+          border-radius: 21px;
+        }
+        .features {
+          grid-template-columns: 1fr;
+        }
+        .feature {
+          display: flex;
+          gap: 10px;
+          text-align: left;
+          align-items: center;
+        }
+        .actions {
+          flex-direction: column;
+        }
+        .btn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="card">
+        <div class="logo">N</div>
+        <h1>NEXORA ERP</h1>
+        <p class="tag">Smart Business Management Dashboard</p>
+        <div class="features">
+          <div class="feature"><span>📊</span><b>Analytics</b></div>
+          <div class="feature"><span>👥</span><b>Management</b></div>
+          <div class="feature"><span>📦</span><b>Inventory</b></div>
+        </div>
+        <div class="loader"></div>
+        <div class="status" id="status">Initializing NEXORA ERP...</div>
+        <div class="actions">
+          <a class="btn primary" href="pages/login.html">Sign In</a
+          ><a class="btn secondary" href="pages/signup.html">Create Account</a>
+        </div>
+        <div class="footer">
+          NEXORA ERP • Frontend Business Management System
+        </div>
+      </section>
+    </main>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const ok = localStorage.getItem("nexora_auth");
+        document.getElementById("status").textContent = ok
+          ? "Loading your dashboard..."
+          : "Preparing secure sign in...";
+        setTimeout(
+          () =>
+            (location.href = ok ? "pages/dashboard.html" : "pages/login.html"),
+          700,
+        );
+      });
+    </script>
+  </body>
+</html>

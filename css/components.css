@@ -1,0 +1,52 @@
+/* Reusable component refinements */
+.section-gap {
+  margin-top: 18px;
+}
+.mini-stat {
+  padding: 15px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-2);
+}
+.mini-stat strong {
+  display: block;
+  font-size: 18px;
+  margin-top: 5px;
+}
+.actions {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.table-wrap {
+  overflow: auto;
+}
+.clickable {
+  cursor: pointer;
+}
+.icon-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--surface-2);
+}
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 15px 0;
+}
+.notice {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #eef2ff;
+  color: #3730a3;
+  font-size: 12px;
+}
+.danger-text {
+  color: var(--danger);
+}
+.success-text {
+  color: var(--success);
+}

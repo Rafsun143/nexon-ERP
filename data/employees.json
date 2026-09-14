@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Aarav Hasan",
+    "email": "aarav@nexora.local",
+    "phone": "+8801710000001",
+    "role": "Administrator",
+    "department": "Management",
+    "salary": 65000,
+    "status": "Active"
+  },
+  {
+    "id": 2,
+    "name": "Nusrat Jahan",
+    "email": "nusrat@nexora.local",
+    "phone": "+8801710000002",
+    "role": "Sales Manager",
+    "department": "Sales",
+    "salary": 52000,
+    "status": "Active"
+  }
+]

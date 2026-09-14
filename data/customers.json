@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Rahim Traders",
+    "email": "rahim@example.com",
+    "phone": "+8801811000001",
+    "company": "Rahim Traders",
+    "city": "Dhaka",
+    "status": "Active"
+  },
+  {
+    "id": 2,
+    "name": "Maya Fashion",
+    "email": "maya@example.com",
+    "phone": "+8801811000002",
+    "company": "Maya Fashion",
+    "city": "Chattogram",
+    "status": "Active"
+  }
+]

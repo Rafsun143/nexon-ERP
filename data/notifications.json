@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "title": "Low stock alert",
+    "message": "Office Chair has reached its reorder level.",
+    "type": "warning",
+    "read": false,
+    "time": "Today"
+  },
+  {
+    "id": 2,
+    "title": "New order received",
+    "message": "Order #1002 has been paid.",
+    "type": "success",
+    "read": true,
+    "time": "Yesterday"
+  }
+]
